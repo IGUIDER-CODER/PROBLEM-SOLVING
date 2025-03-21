@@ -1,0 +1,1490 @@
+____[ problem 1 ]____:
+void PrintName() {
+	cout << "my name is mohamad iguider and nice to meet you ! " << endl;
+}
+int main()
+{
+	PrintName();
+}
+____[ problem 2 ]____:
+string ReadName() {
+	string Name;
+	cout << "pleas enter your name : ";
+	cin >> Name;
+	return Name;
+}
+void PrintName(string Name) {
+	cout << "your name is " << Name;
+}
+int main()
+{
+	PrintName(ReadName());
+}
+____[ problem 3 ]____:
+METHOD 1 : 
+bool IsOddNumber(int Number) {
+	return (Number % 2 != 0);
+}
+int main()
+{
+	if (IsOddNumber(2))
+	{
+		cout << "yes it is odd number";
+	}
+	else
+		cout << "no it is even number";
+}
+
+METHOD 2 :
+enum enOddOrEven{Odd=1,Even=2};
+int ReadNumber() {
+	int Number = 0;
+	cout << "Enter the number : ";
+	cin >> Number;
+	return Number;
+}
+enOddOrEven IsOddNumber(int Number) {
+	if (Number % 2 != 0)
+	{
+		enOddOrEven::Odd;
+	}
+	else
+	{
+		return enOddOrEven::Even;
+	}
+}
+void PrintNumberType(enOddOrEven NumberType) {
+	 (NumberType == enOddOrEven::Even) ? cout << "The Number is even" : cout << "The number is odd";
+}
+int main()
+{
+	
+
+	PrintNumberType(IsOddNumber(ReadNumber()));
+}
+____[ problem 4 ]____:
+
+
+#include <iostream>
+using namespace std;
+enum enHiring{Hierd=1,Rejected=2};
+
+short  ReadAge() {
+	short Age=0;
+	do {
+		cout << "Enter your age :  ";
+		cin >> Age;
+	} while (Age < 0);
+	return Age;
+}
+bool DoseHeHaveDrivingLinsence() {
+	char Answer = 'y';
+	do {
+		cout << "\nDo you have a driving lisence ? [Y/N] ";
+		cin >> Answer;
+	} while (toupper(Answer) != 'Y' && toupper(Answer) != 'N');
+	return (toupper(Answer) == 'Y');
+}
+enHiring CheckHiringStutus(bool DrivingLisence,short Age) {
+	return (DrivingLisence ==true) ? ((Age >= 21) ? enHiring::Hierd : enHiring::Rejected) : enHiring::Rejected;
+}
+void PrintHiringResult(enHiring Hiring) {
+	if (Hiring == enHiring::Hierd)
+	{
+		cout << "\nYou are hiered";
+	}
+	else
+	{
+		cout << "\nYou are Rejected,age must be more or equal 21,and you must have a driving lisence";
+	}
+}
+int main()
+{
+	PrintHiringResult(CheckHiringStutus(DoseHeHaveDrivingLinsence(), ReadAge()));
+
+	
+}
+METHOD 2 : 
+
+
+#include <iostream>
+using namespace std;
+
+struct stInfo {
+	char HasDrivingLisence = 'Y';
+	short Age = 0;
+};
+stInfo ReadInfo() {
+	stInfo Info;
+	do {
+		cout << "Do you have a driving lisence [Y/N] ";
+		cin >> Info.HasDrivingLisence;
+	} while (toupper(Info.HasDrivingLisence) != 'Y' && toupper(Info.HasDrivingLisence) != 'N');
+
+	do {
+		cout << "\n Enter your age : ";
+		cin >> Info.Age;
+	} while (Info.Age < 0);
+	return Info;
+		
+}
+void PrintHringStatus(stInfo Info) {
+	(Info.Age >= 21) ? ((toupper(Info.HasDrivingLisence) == 'Y')?cout<<"You are hiered": cout << "You are Rejecte,must have driving lisence and age more or equal 21") : cout << "You are Rejecte,must have driving lisence and age more or equal 21";
+}
+int main()
+{
+	PrintHringStatus(ReadInfo());
+
+	
+}
+METHOD 3 :
+
+
+#include <iostream>
+using namespace std;
+
+struct stInfo {
+	char HasDrivingLisence = 'Y';
+	short Age = 0;
+};
+stInfo ReadInfo() {
+	stInfo Info;
+	do {
+		cout << "Do you have a driving lisence [Y/N] ";
+		cin >> Info.HasDrivingLisence;
+	} while (toupper(Info.HasDrivingLisence) != 'Y' && toupper(Info.HasDrivingLisence) != 'N');
+
+	do {
+		cout << "\n Enter your age : ";
+		cin >> Info.Age;
+	} while (Info.Age < 0);
+	return Info;
+		
+}
+bool IsAccepted(stInfo &Info) {
+	return (Info.Age >= 21 && toupper(Info.HasDrivingLisence) == 'Y');
+}
+void PrintHringStatus(stInfo Info) {
+	if (IsAccepted(Info))
+	{
+		cout << "\nYou are Hired";
+	}
+	else
+	{
+		cout << "You are Rejected,must have driving lisence and age more or equal 21";
+	}
+}
+int main()
+{
+	PrintHringStatus(ReadInfo());
+
+	
+}
+____[ problem 5 ]____:
+#include <iostream>
+using namespace std;
+
+struct stInfo {
+	char HasDrivingLisence = 'Y';
+	short Age = 0;
+	char HasRecomendation = 'Y';
+};
+stInfo ReadInfo() {
+	stInfo Info;
+	do {
+		cout << "Do you have a driving lisence [Y/N] ";
+		cin >> Info.HasDrivingLisence;
+	} while (toupper(Info.HasDrivingLisence) != 'Y' && toupper(Info.HasDrivingLisence) != 'N');
+
+	do {
+		cout << "\n Enter your age : ";
+		cin >> Info.Age;
+	} while (Info.Age < 0);
+
+	do
+	{
+		cout << "\nDo you have recomendation [Y/N]";
+		cin >> Info.HasRecomendation;
+	} while (toupper(Info.HasRecomendation) != 'Y' && toupper(Info.HasRecomendation) != 'N');
+	return Info;
+		
+}
+bool IsAccepted(stInfo &Info) {
+	if (toupper(Info.HasRecomendation) == 'Y')
+		return true;
+	return (Info.Age >= 21 && toupper(Info.HasDrivingLisence) == 'Y');
+}
+void PrintHringStatus(stInfo Info) {
+	if (IsAccepted(Info))
+	{
+		cout << "\nYou are Hired";
+	}
+	else
+	{
+		cout << "You are Rejected,must have driving lisence and age more or equal 21";
+	}
+}
+int main()
+{
+	PrintHringStatus(ReadInfo());
+
+	
+}
+____[ problem 6 ]____:
+#include <string>
+#include <iostream>
+using namespace std;
+
+string ReadFullName() {
+	string FullName = "";
+	cout << "\nEnter your full name" << endl;
+	getline(cin, FullName);
+	return FullName;
+}
+void PrintFullName(string FullName) {
+	cout << "\nYour Full name is : " << FullName << endl;
+}
+int main()
+{
+	
+	PrintFullName(ReadFullName());
+	
+}
+____[ problem 7 ]____:
+
+#include <string>
+#include <iostream>
+using namespace std;
+
+struct stFullName {
+	string FirstName = "";
+	string LastName = "";
+};
+stFullName ReadFullName() {
+	stFullName FullName;
+	cout << "\nEnter your first name : ";
+	cin >> FullName.FirstName;
+	cout << "\nEnter your last name : ";
+	cin >> FullName.LastName;
+	return FullName;
+}
+string ConcatenatFullName(stFullName FullName) {
+	return (FullName.FirstName + " " + FullName.LastName);
+}
+void PrintFullName(string FullName) {
+	cout << "Your Full name is " << FullName << endl;
+}
+int main()
+{
+	PrintFullName(ConcatenatFullName(ReadFullName()));
+	
+	
+}
+METHOD 2:
+#include <string>
+#include <iostream>
+using namespace std;
+
+struct stFullName {
+	string FirstName = "";
+	string LastName = "";
+};
+stFullName ReadFullName() {
+	stFullName FullName;
+	cout << "\nEnter your first name : ";
+	cin >> FullName.FirstName;
+	cout << "\nEnter your last name : ";
+	cin >> FullName.LastName;
+	return FullName;
+}
+string ConcatenatFullName(stFullName FullName,bool Revers) {
+	if(Revers)
+		return (FullName.LastName + " " + FullName.FirstName);
+
+	return (FullName.FirstName + " " + FullName.LastName);
+}
+void PrintFullName(string FullName) {
+	cout << "Your Full name is " << FullName << endl;
+}
+int main()
+{
+	PrintFullName(ConcatenatFullName(ReadFullName(),true));
+	
+	
+}
+METHOD 3 :
+
+#include <string>
+#include <iostream>
+using namespace std;
+enum enRevers{Yes=1,No=2};
+struct stFullName {
+	string FirstName = "";
+	string LastName = "";
+};
+stFullName ReadFullName() {
+	stFullName FullName;
+	cout << "\nEnter your first name : ";
+	cin >> FullName.FirstName;
+	cout << "\nEnter your last name : ";
+	cin >> FullName.LastName;
+	return FullName;
+}
+string ConcatenatFullName(stFullName FullName,enRevers Revers) {
+	if(Revers==enRevers::Yes)
+		return (FullName.LastName + " " + FullName.FirstName);
+
+	return (FullName.FirstName + " " + FullName.LastName);
+}
+void PrintFullName(string FullName) {
+	cout << "Your Full name is " << FullName << endl;
+}
+int main()
+{
+	PrintFullName(ConcatenatFullName(ReadFullName(),enRevers::Yes));
+	
+	
+}
+____[ problem 8 ]____:
+#include <string>
+#include <iostream>
+using namespace std;
+int ReadNumber() {
+	int Number = 0;
+	cout << "Enter the number ";
+	cin >> Number;
+	return Number;
+}
+float GetHalfNumber(short Number) {
+	return (float)Number/2;
+}
+void PrintHalfNumber(short Number) {
+	cout << "the half of the number " << Number << " is " << GetHalfNumber(Number) << endl;
+}
+int main()
+{
+	PrintHalfNumber(ReadNumber());
+}
+____[ problem 9 ]____:
+
+#include <string>
+#include <iostream>
+using namespace std;
+int ReadNumber() {
+	int Number = 0;
+	cout << "Enter the number ";
+	cin >> Number;
+	return Number;
+}
+float GetHalfNumber(short Number) {
+	return (float)Number/2;
+}
+void PrintHalfNumber(short Number) {
+	cout << "the half of the number " << Number << " is " << GetHalfNumber(Number) << endl;
+}
+int main()
+{
+	PrintHalfNumber(ReadNumber());
+}
+
+____[ problem 10 ]____:
+METHOD 1 :
+
+#include <string>
+#include <iostream>
+using namespace std;
+enum enPassing{Pass=1,Fail=2};
+short ReadGrad() {
+	short Grad = 0;
+	do {
+		cout << "enter your grad : ";
+		cin >> Grad;
+	} while (Grad > 100 || Grad < 0);
+	return Grad;
+}
+enPassing IsPassed(short &Grad) {
+	return (Grad >= 50) ? enPassing::Pass : enPassing::Fail;
+}
+void PrintResult(short Grad) {
+	if (IsPassed(Grad) == enPassing::Pass)
+		cout << "you are passed" << endl;
+	else
+		cout << "you are failed" << endl;
+}
+int main()
+{
+	PrintResult(ReadGrad());
+}
+METHOD 2 :
+
+#include <string>
+#include <iostream>
+using namespace std;
+
+short ReadGrad() {
+	short Grad = 0;
+	do {
+		cout << "enter your grad : ";
+		cin >> Grad;
+	} while (Grad > 100 || Grad < 0);
+	return Grad;
+}
+bool IsPassed(short &Grad) {
+	return (Grad >= 50);
+}
+void PrintResult(short Grad) {
+	if (IsPassed(Grad) )
+		cout << "you are passed" << endl;
+	else
+		cout << "you are failed" << endl;
+}
+int main()
+{
+	PrintResult(ReadGrad());
+}
+
+____[ problem 11 ]____:
+
+#include <string>
+#include <iostream>
+using namespace std;
+void ReadNumbers(int Marks[]) {
+	cout << "\nEnter the first number  : ";
+	cin >> Marks[0];
+	cout << "\nEnter the second number : ";
+	cin >> Marks[1];
+	cout << "\nEnter the thired number : ";
+	cin >> Marks[2];
+	cout << "\nEnter the fifth number : ";
+	cin >> Marks[3];
+}
+int SumOf3Numbers(int Marks[]) {
+	return (Marks[0] + Marks[1] + Marks[2]);
+}
+void PrintTheSum(int Result, int Marks[]) {
+	cout << "\nThe sum of the three numbers " << Marks[0] << " and " << Marks[1] << " and " << Marks[2] << " is :" << Result;
+	
+}
+int main()
+{
+	int Marks[3];
+	ReadNumbers(Marks);
+	PrintTheSum(SumOf3Numbers(Marks), Marks);
+
+}
+____[ problem 12 ]____:
+
+#include <string>
+#include <iostream>
+using namespace std;
+void ReadNumbers(int Marks[]) {
+	cout << "\nEnter the first number  : ";
+	cin >> Marks[0];
+	cout << "\nEnter the second number : ";
+	cin >> Marks[1];
+	cout << "\nEnter the thired number : ";
+	cin >> Marks[2];
+	cout << "\nEnter the fifth number : ";
+	cin >> Marks[3];
+}
+int SumOf3Numbers(int Marks[]) {
+	return (Marks[0] + Marks[1] + Marks[2]);
+}
+float AvreagOfThreeMarks(int Marks[]) {
+	return (float)SumOf3Numbers(Marks)/3;
+}
+void PrintTheAvreagOfTheeMarks(float Avreage) {
+	cout << "the avreage of the three marks is : " << Avreage << endl;
+}
+void PrintTheSum(int Result, int Marks[]) {
+	cout << "\nThe sum of the three numbers " << Marks[0] << " and " << Marks[1] << " and " << Marks[2] << " is :" << Result;
+	
+}
+int main()
+{
+	int Marks[3];
+	ReadNumbers(Marks);
+	PrintTheAvreagOfTheeMarks(AvreagOfThreeMarks(Marks));
+
+}
+____[ problem 13 ]____:
+METHOD 1 :
+
+#include <string>
+#include <iostream>
+using namespace std;
+enum enPassOrFail{Pass=1,Fail=2};
+void ReadNumbers(int Marks[]) {
+	cout << "\nEnter the first number  : ";
+	cin >> Marks[0];
+	cout << "\nEnter the second number : ";
+	cin >> Marks[1];
+	cout << "\nEnter the thired number : ";
+	cin >> Marks[2];
+	cout << "\nEnter the fifth number : ";
+	cin >> Marks[3];
+}
+int SumOf3Numbers(int Marks[]) {
+	return (Marks[0] + Marks[1] + Marks[2]);
+}
+float AvreagOfThreeMarks(int Marks[]) {
+	return (float)SumOf3Numbers(Marks)/3;
+}
+enPassOrFail IsPass(float Result) {
+	return (Result >= 50) ? enPassOrFail::Pass : enPassOrFail::Fail;
+}
+void PrintStutus(int Marks[]) {
+	if (IsPass(AvreagOfThreeMarks(Marks)) == enPassOrFail::Pass)
+		cout << "\nYou are passed" << endl;
+	else
+		cout << "\nYou are failed" << endl;
+}
+int main()
+{
+	int Marks[3];
+	ReadNumbers(Marks);
+	PrintStutus(Marks);
+
+}
+METHOD 2 :
+
+#include <string>
+#include <iostream>
+using namespace std;
+
+void ReadNumbers(int Marks[]) {
+	cout << "\nEnter the first number  : ";
+	cin >> Marks[0];
+	cout << "\nEnter the second number : ";
+	cin >> Marks[1];
+	cout << "\nEnter the thired number : ";
+	cin >> Marks[2];
+	cout << "\nEnter the fifth number : ";
+	cin >> Marks[3];
+}
+int SumOf3Numbers(int Marks[]) {
+	return (Marks[0] + Marks[1] + Marks[2]);
+}
+float AvreagOfThreeMarks(int Marks[]) {
+	return (float)SumOf3Numbers(Marks)/3;
+}
+bool IsPass(float Result) {
+	return (Result >= 50);
+}
+void PrintStutus(int Marks[]) {
+	if (IsPass(AvreagOfThreeMarks(Marks)) )
+		cout << "\nYou are passed" << endl;
+	else
+		cout << "\nYou are failed" << endl;
+}
+int main()
+{
+	int Marks[3];
+	ReadNumbers(Marks);
+	PrintStutus(Marks);
+
+}
+____[ problem 14 ]____:
+#include <string>
+#include <iostream>
+using namespace std;
+void ReadNumbers(int& Number1, int& Number2) {
+	cout << "\nEnter the first Number  : ";
+	cin >> Number1;
+	cout << "\nEnter the second Number : ";
+	cin >> Number2;
+}
+int MaxNumber(int& Number1, int& Number2) {
+	return (Number1 >= Number2) ? Number1 : Number2;
+}
+int main()
+{
+	int Number1, Number2;
+	ReadNumbers(Number1, Number2);
+	cout << "The max number is : " << MaxNumber(Number1,Number2) << endl;
+
+}
+____[ problem 15 ]____:
+#include <string>
+#include <iostream>
+using namespace std;
+void ReadNumbers(int& Number1, int& Number2, int& Number3) {
+	cout << "\nEnter the first Number  : ";
+	cin >> Number1;
+	cout << "\nEnter the second Number : ";
+	cin >> Number2;
+	cout << "\nEnter the third Number  : ";
+	cin >> Number3;
+}
+int MaxOfThreeNumber(int& Number1, int& Number2,int& Number3) {
+	int Max = Number1;
+	if (Max < Number2)
+		Max = Number2;
+	if (Max < Number3)
+		Max = Number3;
+	return Max;
+}
+int main()
+{
+	int Number1, Number2,Number3;
+	ReadNumbers(Number1, Number2,Number3);
+	cout << "The max number is : " << MaxOfThreeNumber(Number1,Number2,Number3) << endl;
+
+}
+____[ problem 16 ]____:
+//#include <string>
+#include <iostream>
+using namespace std;
+void Swap(int& Number1, int &Number2) {
+	int Temp = 0;
+	Temp = Number1;
+	Number1 = Number2;
+	Number2 = Temp;
+}
+int ReadNumber(string Messege) {
+	int Number;
+	cout << Messege;
+	cin >> Number;
+	return Number;
+}
+void PrintTheSwapedNumbers(int& Number1, int &Number2) {
+	cout << "\nNumber 1 is : " << Number1 << " Number 2 is : " << Number2 << endl;
+}
+int main()
+{
+	int Number1 = ReadNumber("\nEnter the first Number  : ");
+	int Number2 = ReadNumber("\nEnter the second number : ");
+	Swap(Number1, Number2);
+	PrintTheSwapedNumbers(Number1, Number2);
+
+}
+____[ problem 17 ]____:
+
+//#include <string>
+#include <iostream>
+using namespace std;
+void  ReadDemetions(float &A,float&B) {
+	cout << "\nEnter Rectangle width : ";
+	cin >> A;
+	cout << "\nEnter rectangle length: ";
+	cin >> B;
+
+}
+float CalculatingRectangleArea(float& A, float& B) {
+	return A * B;
+}
+void PrintResult(float Area) {
+	cout << "\nthe rectangle area is : " << Area;
+}
+int main()
+{
+	float A, B;
+	ReadDemetions(A, B);
+	PrintResult(CalculatingRectangleArea(A, B));
+
+
+}
+____[ problem 18 ]____:
+
+//#include <string>
+#include<math.h>
+#include <iostream>
+using namespace std;
+void  ReadDemetions(float &A,float&B) {
+	cout << "\nEnter Rectangle width : ";
+	cin >> A;
+	cout << "\nEnter rectangle length: ";
+	cin >> B;
+
+}
+float CalculatingRectangleArea(float& A, float& B) {
+	return (A*sqrt(pow(A,2)-pow(B,2)));
+}
+void PrintResult(float Area) {
+	cout << "\nthe rectangle area is : " << Area;
+}
+int main()
+{
+	float A, B;
+	ReadDemetions(A, B);
+	PrintResult(CalculatingRectangleArea(A, B));
+
+
+}
+____[ problem 19 ]____:
+
+//#include <string>
+#include<math.h>
+#include <iostream>
+using namespace std;
+void  ReadDemetions(float &Base,float&Hight) {
+	cout << "\nEnter Triangle Base : ";
+	cin >> Base;
+	cout << "\nEnter Triangle Width: ";
+	cin >> Hight;
+
+}
+float CalculateTriagleArea(float& Base, float& Hight) {
+	float Area = (Base / 2) * Hight;
+	return Area;
+}
+void PrintResult(float Area) {
+	cout << "\nthe Triangle area is : " << Area;
+}
+int main()
+{
+	float Base, Hight;
+	ReadDemetions(Base, Hight);
+	PrintResult(CalculateTriagleArea(Base, Hight));
+
+
+}
+____[ problem 20 ]____:
+//#include <string>
+#include<math.h>
+#include <iostream>
+using namespace std;
+void  ReadRaduim(float &Raduim) {
+	cout << "\nEnter Circle Raduim : ";
+	cin >> Raduim;
+	
+
+}
+float CalculateCircleArea(float& Raduim) {
+	const float Pi = 3.14;
+	float Area = (Pi * pow(Raduim, 2));
+	return Area;
+}
+void PrintResult(float Area) {
+	cout << "\nthe Circle area is : " << Area;
+}
+int main()
+{
+	float Raduim;
+	ReadRaduim(Raduim);
+	PrintResult(CalculateCircleArea(Raduim));
+
+
+}
+
+____[ problem 21 ]____:
+
+//#include <string>
+#include<math.h>
+#include <iostream>
+using namespace std;
+void  ReadDiameter(float &Diameter) {
+	cout << "\nEnter Circle Raduim : ";
+	cin >> Diameter;
+	
+
+}
+float CalculateCircleAreaByDiameter(float& Diameter) {
+	const float Pi = 3.14;
+	float Area = (Pi * pow(Diameter, 2))/4;
+	return Area;
+}
+void PrintResult(float Area) {
+	cout << "\nthe Circle area is : " << Area;
+}
+int main()
+{
+	float Diameter;
+	ReadDiameter(Diameter);
+	PrintResult(CalculateCircleAreaByDiameter(Diameter));
+
+
+}
+____[ problem 22 ]____:
+
+//#include <string>
+#include<math.h>
+#include <iostream>
+using namespace std;
+float  ReadSquarSide() {
+	float Side;
+	cout << "\nEnter Circle Raduim : ";
+	cin >> Side;
+	return Side;
+	
+
+}
+float CalculateCircleAreaBySquarSide(float Side) {
+	const float Pi = 3.14;
+	float Area = (Pi * pow(Side, 2))/4;
+	return Area;
+}
+void PrintResult(float Area) {
+	cout << "\nthe Circle area is : " << Area;
+}
+int main()
+{
+	
+	PrintResult(CalculateCircleAreaBySquarSide(ReadSquarSide()));
+
+
+}
+____[ problem 23 ]____:
+
+//#include <string>
+#include<math.h>
+#include <iostream>
+using namespace std;
+float  ReadCircumfrenc() {
+	float Circumfrenc;
+	cout << "\nEnter Circle Raduim : ";
+	cin >> Circumfrenc;
+	return Circumfrenc;
+}
+float CalculateCircleAreaByCircumfrenc(float Circumfrenc) {
+	const float Pi = 3.14;
+	float Area = pow(Circumfrenc,2)/(4*Pi);
+	return Area;
+}
+void PrintResult(float Area) {
+	cout << "\nthe Circle area is : " << Area;
+}
+int main()
+{
+	
+	PrintResult(CalculateCircleAreaByCircumfrenc(ReadCircumfrenc()));
+
+
+}
+____[ problem 24 ]____:
+
+//#include <string>
+#include<math.h>
+#include <iostream>
+using namespace std;
+void  ReadTriangleSides(float &A,float&B) {
+	cout << "\nEnter the side A : ";
+	cin >> A;
+	cout << "\nEnter the side B : ";
+	cin >> B;
+
+}
+float CalculateCircleAreaInscirbedInIsoscelesTriangle(float& A, float& B) {
+	const float Pi = 3.14;
+	float Area = ((Pi * (pow(B, 2) / 4))*(((2 * A) - B) / ((2 * A) + B)));
+	return Area;
+}
+void PrintResult(float Area) {
+	cout << "\nthe Circle area is : " << Area;
+}
+int main()
+{
+	float A, B;
+	ReadTriangleSides(A, B);
+	PrintResult(CalculateCircleAreaInscirbedInIsoscelesTriangle(A, B));
+
+
+}
+____[ problem 34 ]____:
+
+//#include <string>
+#include<math.h>
+#include <iostream>
+using namespace std;
+int ReadTotalSales() {
+	int TotalSales = 0;
+	do {
+		cout << "\nEnter Total Sales : ";
+		cin >> TotalSales;
+	} while (TotalSales < 0 );
+	return TotalSales;
+}
+float CalculateCommesion(int TotalSales) {
+	float Commission=0;
+	if (TotalSales >= 50000 && TotalSales <= 100000)
+		Commission = TotalSales * 0.05;
+	if (TotalSales > 100000 && TotalSales <= 500000)
+		Commission = TotalSales * 0.03;
+	if (TotalSales >500000 && TotalSales <= 1000000)
+		Commission = TotalSales * 0.02;
+	if (TotalSales >1000000)
+		Commission = TotalSales * 0.01;
+	return Commission;
+}
+void PrintResult(int TotalSales) {
+	cout << "\n Your Result is : " << CalculateCommesion(TotalSales) << endl;
+}
+int main()
+{
+	PrintResult(ReadTotalSales());
+
+}
+____[ problem 35 ]____:
+
+
+//#include <string>
+#include<math.h>
+#include <iostream>
+using namespace std;
+struct stPiggyBank {
+	short Pennies = 0;
+	short Nickles = 0;
+	short Dimes = 0;
+	short Quarter = 0;
+	short Dollars = 0;
+};
+
+void ReadMonnay(stPiggyBank &Money) {
+	do {
+		cout << "\nEnter the pennies : ";
+		cin >> Money.Pennies;
+	} while (Money.Pennies < 0);
+	do {
+		cout << "\nEnter the Nickles : ";
+		cin >> Money.Nickles;
+	} while (Money.Nickles < 0);
+	do {
+		cout << "\nEnter the Dimes   : ";
+		cin >> Money.Dimes;
+	} while (Money.Dimes < 0);
+	do {
+		cout << "\nEnter the Quarters: ";
+		cin >> Money.Quarter;
+	} while (Money.Quarter < 0);
+	do {
+		cout << "\nEnter the Dollares: ";
+		cin >> Money.Dollars;
+	} while (Money.Dollars < 0);
+}
+int CalculatePennies(stPiggyBank& Monnay) {
+	return (Monnay.Pennies + (Monnay.Nickles * 5) + (Monnay.Dimes * 10) + (Monnay.Quarter * 25) + (Monnay.Dollars * 100));
+}
+
+int main()
+{
+	stPiggyBank Money;
+	ReadMonnay(Money);
+	int NumberOfPennies = CalculatePennies(Money);
+	cout << "\nThe number of pennies is : " <<NumberOfPennies << endl;
+	cout << "\nThe number of Dollars is : " << (float)NumberOfPennies/100 << endl;
+
+}
+____[ problem 36 ]____:
+
+//#include <string>
+#include<math.h>
+#include <iostream>
+using namespace std;
+enum enOpType{enAdd=1,enSub=2,enMul=3,enDiv=4};
+struct stNumbers {
+	int Number1 = 0;
+	int Number2 = 0;
+};
+stNumbers ReadNumbers() {
+	stNumbers Numbers;
+	cout << "\nEnter the first Number  : ";
+	cin >> Numbers.Number1;
+	cout << "\nEnter the second Number : ";
+	cin >> Numbers.Number2;
+	return Numbers;
+}
+enOpType ReadOpType() {
+	short OpType = 0;
+	do {
+		cout << "\nEnter the operation type [add/1],[sub/2],[mul/3],[div/4]: ";
+		cin >> OpType;
+	} while (OpType < 0 || OpType>4);
+	return (enOpType)OpType;
+}
+float CaclculatResulte(enOpType OpType,stNumbers&Numbers) {
+	switch (OpType) {
+	case enAdd:
+		return Numbers.Number1 + Numbers.Number2;
+	case enSub:
+		return Numbers.Number1 - Numbers.Number2;
+	case enMul:
+		return Numbers.Number1 * Numbers.Number2;
+	case enDiv:
+		return (Numbers.Number2 == 0) ? Numbers.Number1 : (float)Numbers.Number1 / Numbers.Number2;
+	}
+}
+int main()
+{
+	stNumbers Number = ReadNumbers();
+	cout << "\nThe result is : " << CaclculatResulte(ReadOpType(), Number);
+
+}
+____[ problem 37 ]____:
+
+//#include <string>
+#include<math.h>
+#include <iostream>
+using namespace std;
+int ReadNumber() {
+	int Number = 0;
+	cout << "\nEnter the number : ";
+	cin >> Number;
+	return Number;
+}
+int SumUntilMinus99() {
+	int Sum = 0;
+	int Number = ReadNumber();
+	while (Number != -99)
+	{
+		Sum += Number;
+		Number = ReadNumber();
+	}
+	return Sum;
+
+}
+int main()
+{
+	
+	cout << "The Sum is : " << SumUntilMinus99();
+}
+____[ problem 38 ]____:
+METHOD 1 :
+
+//#include <string>
+#include<math.h>
+#include <iostream>
+using namespace std;
+enum enIsPrim{enPrim=1,enNotPrim=2};
+int ReadNumber() {
+	int Number = 0;
+	cout << "\nEnter the number : ";
+	cin >> Number;
+	return Number;
+}
+enIsPrim CheckPrimNumber() {
+	int Number = ReadNumber();
+	for (int Counter = 2;Counter < Number / 2;Counter++)
+	{
+		if (Number % Counter == 0)
+			return enIsPrim::enNotPrim;
+	}
+	return enIsPrim::enPrim;
+}
+void PrintResult(enIsPrim Prim) {
+	if (Prim == enNotPrim)
+		cout << "\nIt's not a prim number ";
+	else
+		cout << "\nit's a prim number";
+}
+int main()
+{
+	PrintResult(CheckPrimNumber());
+	
+}
+METHOD 2:
+
+//#include <string>
+#include<math.h>
+#include <iostream>
+using namespace std;
+
+int ReadNumber() {
+	int Number = 0;
+	cout << "\nEnter the number : ";
+	cin >> Number;
+	return Number;
+}
+bool IsPrimeNumber() {
+	int Number = ReadNumber();
+	for (int Counter = 2;Counter < Number / 2;Counter++)
+	{
+		if (Number % Counter == 0)
+			return false;
+	}
+	return true;
+}
+void PrintResult() {
+	if (IsPrimeNumber())
+		cout << "\nIt's a prim number ";
+	else
+		cout << "\nit's not a prim number";
+}
+int main()
+{
+	PrintResult();
+	
+}
+____[ problem 39 ]____:
+
+//#include <string>
+#include<math.h>
+#include <iostream>
+using namespace std;
+
+float ReadTotalBill() {
+	float TotalBill = 0;
+	do {
+		cout << "\n Enter the total bill : ";
+		cin >> TotalBill;
+	} while (TotalBill <= 0);
+	return TotalBill;
+}
+float ReadCashPaid() {
+	float CashPaid = 0;
+	do {
+		cout << "\nEnter the cash paid : ";
+		cin >> CashPaid;
+	} while (CashPaid <= 0);
+	return CashPaid;
+}
+float ReminderToPaidBack(float&TotalBill,float&CashPaid) {
+	return CashPaid - TotalBill;
+}
+void ShowResult(float&TotalBill,float&CashPaid) {
+	float Reminder = ReminderToPaidBack(TotalBill, CashPaid);
+	if (Reminder > 0)
+		cout << "Reminder to be paid is : " << Reminder << endl;
+	else
+		cout << "\nThe custumer still need to pay : " << -1 * Reminder << endl;
+}
+int main()
+{
+	float TotalBill = ReadTotalBill();
+	float CashPaid = ReadCashPaid();
+	ShowResult(TotalBill, CashPaid);
+	
+}
+____[ problem 40 ]____:
+#include<math.h>
+#include <iostream>
+using namespace std;
+
+float ReadTotalBill() {
+	float TotalBill = 0;
+	do {
+		cout << "\n Enter the total bill : ";
+		cin >> TotalBill;
+	} while (TotalBill <= 0);
+	return TotalBill;
+}
+float TotalBillWithFeesAndTaxes(float TotalBill) {
+	float ServicTax = 0.1;
+	float SalesTax = 0.16;
+	float BillWithServicTax = TotalBill + (TotalBill * ServicTax);
+	return BillWithServicTax + (BillWithServicTax * SalesTax);
+}
+int main()
+{
+	cout << "\nThe total bill is : " << TotalBillWithFeesAndTaxes(ReadTotalBill());
+	
+}
+____[ problem 41 ]____:
+
+//#include <string>
+#include<math.h>
+#include <iostream>
+using namespace std;
+struct stTime {
+	int Days = 0;
+	int Houres = 0;
+	int Minutes = 0;
+	int Seconds = 0;
+
+};
+stTime ReadTime() {
+	stTime Time;
+	do {
+		cout << "\nEnter the number of the Days: ";
+		cin >> Time.Days;
+	} while (Time.Days < 0);
+	
+	do {
+		cout << "\nEnter the number of houres  : ";
+		cin >> Time.Houres;
+	} while (Time.Houres < 0);
+	
+	do {
+		cout << "\nEnter the number of minutes : ";
+		cin >> Time.Minutes;
+	} while (Time.Minutes < 0);
+
+	do {
+		cout << "\nEnter the number of Seconds : ";
+		cin >> Time.Seconds;
+	} while (Time.Seconds < 0);
+	return Time;
+}
+int NumberOfSecondsInDay(int Days) {
+	return Days * 24 * 60 * 60;
+}
+int NumberOfSecondsInHoure(int Houres) {
+	return Houres *60*60;
+}
+int NumberOfSecondsInMinute(int Minutes) {
+	return Minutes * 60;
+}
+int GetTotalSecondes(stTime Time) {
+	return NumberOfSecondsInDay(Time.Days) + NumberOfSecondsInHoure(Time.Houres) + NumberOfSecondsInMinute(Time.Minutes)
+		+ Time.Seconds;
+}
+
+int main()
+{
+	
+	cout << "\nThe total second is : " << GetTotalSecondes(ReadTime());
+}
+
+____[ problem 42 ]____:
+//#include <string>
+#include<math.h>
+#include <iostream>
+using namespace std;
+struct stTime {
+	int Days = 0;
+	int Houres = 0;
+	int Minutes = 0;
+	int Seconds = 0;
+
+};
+int ReadSeconds() {
+	int Seconds = 0;
+	do {
+		cout << "\nEnter The Number of seconds : ";
+		cin >> Seconds;
+	} while (Seconds < 0);
+	return Seconds;
+}
+
+
+stTime GetDaysAndHouresAndMinsInSeconds(int Seconds) {
+	int NumberOfSecondsInDay = 24 * 60 * 60;
+	short NumberOfSecondsInHoure = 60 * 60;
+	short NumberOfSecondsInMin = 60;
+	int Reminder = 0;
+	stTime Time;
+	Time.Days = Seconds / NumberOfSecondsInDay;
+	Reminder = Seconds % NumberOfSecondsInDay;
+	Time.Houres = Reminder / NumberOfSecondsInHoure;
+	Reminder=Reminder% NumberOfSecondsInHoure;
+	Time.Minutes = Reminder / NumberOfSecondsInMin;
+	Reminder = Reminder % NumberOfSecondsInMin;
+	Time.Seconds = Reminder;
+	return Time;
+}
+void PrintResult(stTime& Time) {
+	cout << endl << Time.Days << ':' << Time.Houres << ':' << Time.Minutes << ':' << Time.Seconds << endl;
+}
+int main()
+{
+	
+	stTime Time = GetDaysAndHouresAndMinsInSeconds(ReadSeconds());
+	PrintResult(Time);
+}
+
+____[ problem 43 ]____:
+
+//#include <string>
+#include<math.h>
+#include <iostream>
+using namespace std;
+enum enDays{eSunday=1,eMonday=2,eTuesday=3,eWedensday=4,eThursday=5,eFriday=6,eSaturday=7};
+enDays ReadDay() {
+	short Day = 0;
+	do {
+		cout << "\nEnter the day number : ";
+		cin >> Day;
+	} while (Day <= 0||Day>7);
+	return (enDays)Day;
+}
+string GetDayName(enDays DayNumber) {
+	switch (DayNumber) {
+	case eSunday:
+		return "Sunday";
+	case eMonday:
+		return "Monday";
+	case eTuesday:
+		return "Tuesday";
+	case eWedensday:
+		return "Wedensday";
+	case eThursday:
+		return "Thursday";
+	case eFriday:
+		return "Friday";
+	case eSaturday:
+		return "Saturday";
+	}
+}
+void PrintDayName() {
+	cout << "\nThe day name is : " << GetDayName(ReadDay()) << endl;
+}
+int main()
+{
+	PrintDayName();
+}
+____[ problem 44 ]____:
+
+//#include <string>
+#include<math.h>
+#include <iostream>
+using namespace std;
+enum enMonths{ eJanuary =1,eFebruary =2,eMarch =3,eApril =4,eMay =5,eJune =6,eJuly =7,eAugust=8,eSeptember=9,
+	eOctober=10,eNovember =11,eDecember=12};
+enMonths ReadMonthNumber() {
+	short Month = 0;
+	do {
+		cout << "\nEnter the Month Number : ";
+		cin >> Month;
+	} while (Month <= 0|| Month >12);
+	return (enMonths)Month;
+}
+string GetMonthName(enMonths MonthNumber) {
+	switch (MonthNumber) {
+	case eJanuary:
+		return "January";
+	case eFebruary:
+		return "February";
+	case eMarch:
+		return "March";
+	case eApril:
+		return "April";
+	case eMay:
+		return "May";
+	case eJune:
+		return "June";
+	case eJuly:
+		return "July";
+	case eAugust:
+		return "August";
+	case eSeptember:
+		return "Sepetember";
+	case eOctober:
+		return "October";
+	case eNovember:
+		return "Novomber";
+	case eDecember:
+		return "December";
+	}
+}
+void PrintMonthName() {
+	cout << "\nThe day name is : " << GetMonthName(ReadMonthNumber()) << endl;
+}
+int main()
+{
+	PrintMonthName();
+}
+____[ problem 45 ]____:
+
+//#include <string>
+#include<math.h>
+#include <iostream>
+using namespace std;
+void PrintLettersFromAToZ() {
+	for (short Counter = 65;Counter <= 90;Counter++)
+		cout << char(Counter) << endl;
+}
+int main()
+{
+	PrintLettersFromAToZ();
+}
+____[ problem 46 ]____:
+
+//#include <string>
+#include<math.h>
+#include <iostream>
+using namespace std;
+float ReadLoanAmaount() {
+	float Loan = 0;
+	do {
+		cout << "\nEnter the loan amount    : ";
+		cin >> Loan;
+	} while (Loan < 0);
+	return Loan;
+}
+float ReadMonthlyPaiment() {
+	float MonthlyPaiment = 0;
+	do {
+		cout << "\Enter the monthly paiment :";
+		cin >> MonthlyPaiment;
+	} while (MonthlyPaiment < 0);
+	return MonthlyPaiment;
+}
+short CalculateNadedMonthesToPayLoan(float MonthlyPaiment,float LoanAmount) {
+	return (float)LoanAmount / MonthlyPaiment;
+}
+int main()
+{
+	cout << "\nThe neded Time to pay the loan is : " << CalculateNadedMonthesToPayLoan(ReadMonthlyPaiment(),ReadLoanAmaount());
+	cout << " Monthes";
+}
+____[ problem 47 ]____:
+
+//#include <string>
+#include<math.h>
+#include <iostream>
+using namespace std;
+float ReadPositiveNumber(string Message) {
+	float Number = 0;
+	do {
+		cout << Message << endl;
+		cin >> Number;
+	} while (Number < 0);
+	return Number;
+}
+float CalcuteNededMonthlyPaiment(float Months,float LoanAmount) {
+	return (float)LoanAmount / Months;
+}
+int main()
+{
+	float LoanAmount = ReadPositiveNumber("Enter the loan amount: ");
+	float Months = ReadPositiveNumber("Enter the Neded months to pay the loan : ");
+	cout << "\nthe neded monthly paiments to pay the loan within " << Months << " Month are : " <<
+		CalcuteNededMonthlyPaiment(Months, LoanAmount);
+}
+____[ problem 48 ]____:
+//#include <string>
+#include<math.h>
+#include <iostream>
+using namespace std;
+string ReadPinCode() {
+	string PinCode = "";
+	cout << "\nEnter your pin code : ";
+	cin >> PinCode;
+	return PinCode;
+}
+bool IsPinCodeCorrect(string &UserPinCode) {
+	return (UserPinCode == "1234");
+}
+void PrintResultOnScreen(string UserPinCode) {
+	if (IsPinCodeCorrect(UserPinCode))
+		cout << "\nYour balance is : 4524 USD";
+	else
+		cout << "\nYour PinCode is Incorrect";
+}
+int main()
+{
+	PrintResultOnScreen(ReadPinCode());
+}
+____[ problem 49 ]____:
+
+//#include <string>
+#include<math.h>
+#include <iostream>
+using namespace std;
+string ReadPinCode() {
+	string PinCode = "";
+	cout << "\nEnter the pin code : ";
+	cin >> PinCode;
+	return PinCode;
+}
+bool IsPinCodeCorrect(string UserPinCode) {
+	return (UserPinCode == "1234");
+}
+void PrintAccountBalance() {
+		cout << "\nYour balance is : 4524 USD";
+
+}
+void CheckTrials() {
+	short Trails = 3;
+	while (Trails > 0)
+	{
+		if (IsPinCodeCorrect(ReadPinCode()))
+			PrintAccountBalance();
+		Trails--;
+	}
+	cout << "\n3 Trials are done , fuck off";
+}
+
+int main()
+{
+	CheckTrials();
+}
